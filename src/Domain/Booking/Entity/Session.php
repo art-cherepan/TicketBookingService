@@ -8,37 +8,29 @@ use http\Exception\RuntimeException;
 
 final class Session
 {
-    private SessionDate $sessionDate;
-    private SessionTime $sessionStartTime;
-    private SessionTime $sessionEndTime;
-    private array $tickets;
-    private string $filmName;
-    private int $id;
-
     /**
-     * Session constructor.
-     * @param int $id
-     * @param SessionDate $sessionDate
-     * @param SessionTime $sessionStartTime
-     * @param SessionTime $sessionEndTime
-     * @param Ticket[] $tickets
-     * @param string $filmName
+     * @param array<Ticket> $tickets
      */
-    public function __construct(int $id, SessionDate $sessionDate, SessionTime $sessionStartTime, SessionTime $sessionEndTime, array $tickets, string $filmName)
-    {
-        $this->id = $id;
-        $this->sessionDate = $sessionDate;
-        $this->sessionStartTime = $sessionStartTime;
-        $this->sessionEndTime = $sessionEndTime;
-        $this->filmName = $filmName;
-
+    public function __construct(
+        private int $id,
+        private SessionDate $sessionDate,
+        private SessionTime $sessionStartTime,
+        private SessionTime $sessionEndTime,
+        private array $tickets,
+        private string $filmName,
+    ) {
         foreach ($tickets as $ticket) {
-            if ($ticket->getSessionId() != $this->id) {
+            if ($ticket->getSessionId() !== $this->id) {
                 throw new RuntimeException('A ticket session id not equal id of current session.');
             }
         }
 
         $this->tickets = $tickets;
+    }
+
+    public function getId(): int
+    {
+        return $this->id;
     }
 
     public function getSessionDate(): SessionDate
@@ -56,6 +48,9 @@ final class Session
         return $this->sessionEndTime;
     }
 
+    /**
+     * @return array<Ticket>
+     */
     public function getTickets(): array
     {
         return $this->tickets;
@@ -73,9 +68,11 @@ final class Session
         }
 
         foreach ($this->tickets as $sessionTicket) {
-            if ($sessionTicket->getId() == $ticket->getId()) {
-                unset($sessionTicket);
+            if ($sessionTicket->getId() !== $ticket->getId()) {
+                continue;
             }
+
+            unset($sessionTicket);
         }
 
         return true;

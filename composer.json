@@ -1,8 +1,10 @@
 {
+    "name": "test/test",
+    "description": "service for booking of tickets",
+    "license": "MIT",
     "autoload": {
         "psr-4": {
-            "App\\Domain\\Booking\\Entity\\": "classes",
-            "App\\Domain\\Booking\\Entity\\ValueObject\\": "classes"
+            "App\\": "src/"
         }
     },
     "require-dev": {
@@ -20,5 +22,8 @@
             "phpro/grumphp": true,
             "dealerdirect/phpcodesniffer-composer-installer": true
         }
+    },
+    "require": {
+        "ext-http": "*"
     }
 }

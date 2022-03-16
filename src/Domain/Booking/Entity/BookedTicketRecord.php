@@ -4,18 +4,12 @@ namespace App\Domain\Booking\Entity;
 
 final class BookedTicketRecord
 {
-    private Client $client;
-    private Session $session;
-    private Ticket $ticket;
-    private int $id;
-
-    public function __construct(int $id, Client $client, Session $session, Ticket $ticket)
-    {
-        $this->client = $client;
-        $this->session = $session;
-        $this->ticket = $ticket;
-        $this->id = $id;
-    }
+    public function __construct(
+        private int $id,
+        private Client $client,
+        private Session $session,
+        private Ticket $ticket,
+    ) {}
 
     public function bookedTicket(): bool
     {

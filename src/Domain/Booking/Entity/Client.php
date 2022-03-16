@@ -7,14 +7,10 @@ use App\Domain\Booking\Entity\ValueObject\ClientPhoneNumber;
 
 final class Client
 {
-    private ClientName $clientName;
-    private ClientPhoneNumber $phoneNumber;
-
-    public function __construct($clientName, $phoneNumber)
-    {
-        $this->clientName = $clientName;
-        $this->phoneNumber = $phoneNumber;
-    }
+    public function __construct(
+        private ClientName $clientName,
+        private ClientPhoneNumber $phoneNumber,
+    ) {}
 
     public function getClientName(): string
     {

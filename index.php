@@ -11,7 +11,7 @@ use \App\Domain\Booking\Entity\ValueObject\ClientPhoneNumber;
 use \App\Domain\Booking\Entity\ValueObject\SessionDate;
 use \App\Domain\Booking\Entity\ValueObject\SessionTime;
 
-$client = new Client(new ClientName('Иван'), new ClientPhoneNumber('89997774444'));
+$client = new Client(new ClientName('Иван'), new ClientPhoneNumber('9997774444'));
 
 $tickets = [
     new Ticket(1, 1),
