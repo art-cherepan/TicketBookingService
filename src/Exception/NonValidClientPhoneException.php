@@ -4,9 +4,9 @@ namespace App\Exception;
 
 class NonValidClientPhoneException extends \DomainException
 {
-    public function __construct()
+    public function __construct(string $nonValidPhone)
     {
-        $message = 'A number of phone have not a valid format.';
+        $message = sprintf('The number of phone "%s" have not a valid format.', $nonValidPhone);
 
         parent::__construct($message);
     }

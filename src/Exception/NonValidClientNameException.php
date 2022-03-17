@@ -4,9 +4,9 @@ namespace App\Exception;
 
 class NonValidClientNameException extends \DomainException
 {
-    public function __construct()
+    public function __construct(string $nonValidName)
     {
-        $message = 'A family name have not a valid format.';
+        $message = sprintf('The family name "%s" have not a valid format.', $nonValidName);
 
         parent::__construct($message);
     }

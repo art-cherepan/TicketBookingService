@@ -17,7 +17,7 @@ final class ClientName
     public static function assertNameIsValid(string $clientName): void
     {
         if (preg_match(self::VALID_CLIENT_NAME_PATTERN, $clientName) === 0) {
-            throw new NonValidClientNameException();
+            throw new NonValidClientNameException($clientName);
         }
     }
 

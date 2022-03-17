@@ -17,7 +17,7 @@ final class ClientPhoneNumber
     public static function assertPhoneNumberIsValid(string $phoneNumber): void
     {
         if (preg_match(self::VALID_PHONE_NUMBER_PATTERN, $phoneNumber) === 0) {
-            throw new NonValidClientPhoneException();
+            throw new NonValidClientPhoneException($phoneNumber);
         }
     }
 
