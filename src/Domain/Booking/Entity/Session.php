@@ -6,6 +6,7 @@ use App\Domain\Booking\Entity\ValueObject\SessionDate;
 use App\Domain\Booking\Entity\ValueObject\SessionTime;
 use App\Exception\NonFreeTicketsException;
 use http\Exception\InvalidArgumentException;
+use Symfony\Component\Uid\UuidV4;
 
 final class Session
 {
@@ -13,7 +14,7 @@ final class Session
      * @param array<Ticket> $tickets
      */
     public function __construct(
-        private int $id,
+        private UuidV4 $id,
         private SessionDate $sessionDate,
         private SessionTime $sessionStartTime,
         private SessionTime $sessionEndTime,
@@ -27,7 +28,7 @@ final class Session
         }
     }
 
-    public function getId(): int
+    public function getId(): UuidV4
     {
         return $this->id;
     }

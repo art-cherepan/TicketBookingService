@@ -10,21 +10,17 @@ use \App\Domain\Booking\Entity\ValueObject\ClientName;
 use \App\Domain\Booking\Entity\ValueObject\ClientPhoneNumber;
 use \App\Domain\Booking\Entity\ValueObject\SessionDate;
 use \App\Domain\Booking\Entity\ValueObject\SessionTime;
+use Symfony\Component\Uid\Uuid;
 
 $client = new Client(new ClientName('Иван'), new ClientPhoneNumber('9997774444'));
 
 $tickets = [
-    new Ticket(1, 1),
-    new Ticket(2, 1),
-    new Ticket(3, 1),
-    new Ticket(4, 1),
-    new Ticket(5, 1),
-    new Ticket(6, 1),
-    new Ticket(7, 1),
-    new Ticket(8, 1),
-    new Ticket(9, 1),
-    new Ticket(10, 1),
+    new Ticket(Uuid::v4(), Uuid::v4()),
+    new Ticket(Uuid::v4(), Uuid::v4()),
+    new Ticket(Uuid::v4(), Uuid::v4()),
 ];
+
+var_dump($tickets); die;
 
 $session = new Session(1, new SessionDate('2022-04-01'), new SessionTime('20:00'), new SessionTime('22:30'), $tickets, 'Веном 2');
 

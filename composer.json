@@ -24,6 +24,7 @@
         }
     },
     "require": {
-        "ext-http": "*"
+        "ext-http": "*",
+        "symfony/uid": "^6.0"
     }
 }

@@ -2,14 +2,21 @@
 
 namespace App\Domain\Booking\Entity;
 
+use Symfony\Component\Uid\UuidV4;
+
 final class BookedTicketRecord
 {
     public function __construct(
-        private int $id,
+        private UuidV4 $id,
         private Client $client,
         private Session $session,
         private Ticket $ticket,
     ) {}
+
+    public function getId(): UuidV4
+    {
+        return $this->id;
+    }
 
     public function bookedTicket(): void
     {
