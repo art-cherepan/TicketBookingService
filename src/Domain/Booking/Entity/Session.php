@@ -4,7 +4,8 @@ namespace App\Domain\Booking\Entity;
 
 use App\Domain\Booking\Entity\ValueObject\SessionDate;
 use App\Domain\Booking\Entity\ValueObject\SessionTime;
-use http\Exception\RuntimeException;
+use App\Exception\NonFreeTicketsException;
+use http\Exception\InvalidArgumentException;
 
 final class Session
 {
@@ -21,11 +22,9 @@ final class Session
     ) {
         foreach ($tickets as $ticket) {
             if ($ticket->getSessionId() !== $this->id) {
-                throw new RuntimeException('A ticket session id not equal id of current session.');
+                throw new InvalidArgumentException();
             }
         }
-
-        $this->tickets = $tickets;
     }
 
     public function getId(): int
@@ -61,10 +60,10 @@ final class Session
         return $this->filmName;
     }
 
-    public function toBookATicket(Ticket $ticket): bool
+    public function toBookATicket(Ticket $ticket): void
     {
         if ($this->getTicketCount() < 1) {
-            new RuntimeException('All tickets purchased.');
+            throw new NonFreeTicketsException();
         }
 
         foreach ($this->tickets as $sessionTicket) {
@@ -72,10 +71,8 @@ final class Session
                 continue;
             }
 
-            unset($sessionTicket);
+            unset($this->tickets[array_search($ticket, $this->tickets, null)]);
         }
-
-        return true;
     }
 
     private function getTicketCount(): int

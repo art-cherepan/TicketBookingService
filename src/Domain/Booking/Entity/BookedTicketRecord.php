@@ -11,9 +11,9 @@ final class BookedTicketRecord
         private Ticket $ticket,
     ) {}
 
-    public function bookedTicket(): bool
+    public function bookedTicket(): void
     {
-        return $this->session->toBookATicket($this->ticket);
+        $this->session->toBookATicket($this->ticket);
     }
 
     public function getSessionDate(): string

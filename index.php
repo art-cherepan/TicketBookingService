@@ -32,4 +32,13 @@ $ticket = $tickets[0];
 
 $bookedTickedRecord = new BookedTicketRecord(1, $client, $session, $ticket);
 
-var_dump($bookedTickedRecord->bookedTicket());
+$bookedTickedRecord->bookedTicket();
+
+var_dump([
+    $bookedTickedRecord->getClientName(),
+    $bookedTickedRecord->getClientPhoneNumber(),
+    $bookedTickedRecord->getFilmName(),
+    $bookedTickedRecord->getSessionDate(),
+    $bookedTickedRecord->getSessionStartTime(),
+    $bookedTickedRecord->getSessionEndTime(),
+]);
