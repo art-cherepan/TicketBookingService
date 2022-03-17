@@ -3,7 +3,6 @@
 namespace App\Domain\Booking\Entity;
 
 use App\Domain\Booking\Entity\Collections\TicketCollection;
-use App\Exception\InvalidSessionIdException;
 use App\Exception\NonFreeTicketsException;
 use DateTimeImmutable;
 use Symfony\Component\Uid\Uuid;
@@ -11,17 +10,17 @@ use Symfony\Component\Uid\UuidV4;
 
 final class Session
 {
+    private TicketCollection $tickets;
+
     public function __construct(
         private UuidV4 $id,
         private DateTimeImmutable $sessionDate,
         private DateTimeImmutable $sessionStartTime,
         private DateTimeImmutable $sessionEndTime,
-        private TicketCollection $tickets,
+        private int $numberOfTickets,
         private string $filmName,
     ) {
-        if (!$this->tickets->areForSession($this)) {
-            throw new InvalidSessionIdException();
-        }
+        $this->tickets = $this->createTickets($this->numberOfTickets);
     }
 
     public function getId(): UuidV4
@@ -60,8 +59,19 @@ final class Session
         return new BookedTicketRecord(Uuid::v4(), $client, $this, $ticket);
     }
 
-    private function getTickets(): TicketCollection
+    public function getTickets(): TicketCollection
     {
         return $this->tickets;
+    }
+
+    private function createTickets(int $numberOfTickets): TicketCollection
+    {
+        $tickets = [];
+
+        for ($i = 0; $i < $numberOfTickets; $i++) {
+            $tickets[] = new Ticket(Uuid::v4(), $this);
+        }
+
+        return new TicketCollection($tickets);
     }
 }

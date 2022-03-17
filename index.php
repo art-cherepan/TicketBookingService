@@ -14,33 +14,14 @@ $client = new Client(Uuid::v4(), new ClientName('Иван'), new ClientPhoneNumb
 
 $sessionUUID = Uuid::v4();
 
-$tickets = [
-    new Ticket(Uuid::v4(), $sessionUUID),
-    new Ticket(Uuid::v4(), $sessionUUID),
-    new Ticket(Uuid::v4(), $sessionUUID),
-];
-
-$ticketCollection = new TicketCollection($tickets);
-
 $date = new DateTimeImmutable('2022-04-01');
 
 $timeStart = $date->setTime('20', '00', '00');
 
 $timeEnd = $date->setTime('22', '30', '00');
 
-$session = new Session($sessionUUID, $date, $timeStart, $timeEnd, $ticketCollection, 'Веном 2');
+$session = new Session($sessionUUID, $date, $timeStart, $timeEnd, 10, 'Веном 2');
 
-$ticket = $tickets[0];
+$ticketCollection = $session->getTickets();
 
-$session->bookTicket($client, $ticket);
-
-var_dump($session);
-
-//var_dump([
-//    $bookedTickedRecord->getClientName(),
-//    $bookedTickedRecord->getClientPhoneNumber(),
-//    $bookedTickedRecord->getFilmName(),
-//    $bookedTickedRecord->getSessionDate(),
-//    $bookedTickedRecord->getSessionStartTime(),
-//    $bookedTickedRecord->getSessionEndTime(),
-//]);
+$session->bookTicket($client, $ticketCollection->tickets[0]);

@@ -2,7 +2,6 @@
 
 namespace App\Domain\Booking\Entity\Collections;
 
-use App\Domain\Booking\Entity\Session;
 use App\Domain\Booking\Entity\Ticket;
 use ArrayIterator;
 use IteratorAggregate;
@@ -13,7 +12,7 @@ class TicketCollection implements IteratorAggregate
      * @param array<Ticket> $tickets
      */
     public function __construct(
-        private array $tickets,
+        public array $tickets,
     ) {}
 
     public function getIterator(): ArrayIterator
@@ -39,16 +38,5 @@ class TicketCollection implements IteratorAggregate
         }
 
         return new TicketCollection($newTicketCollection);
-    }
-
-    public function areForSession(Session $session): bool
-    {
-        foreach ($this->tickets as $ticket) {
-            if ($ticket->getSessionId() !== $session->getId()) {
-                return false;
-            }
-        }
-
-        return true;
     }
 }

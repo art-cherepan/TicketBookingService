@@ -8,7 +8,7 @@ final class Ticket
 {
     public function __construct(
         private UuidV4 $id,
-        private UuidV4 $sessionId,
+        private Session $session,
     ) {}
 
     public function getId(): UuidV4
@@ -16,8 +16,8 @@ final class Ticket
         return $this->id;
     }
 
-    public function getSessionId(): UuidV4
+    public function getSessionId(): Session
     {
-        return $this->sessionId;
+        return $this->session;
     }
 }
