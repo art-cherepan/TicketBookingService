@@ -11,10 +11,10 @@ final class ClientPhoneNumber
     public function __construct(
         private string $phoneNumber,
     ) {
-        self::validate($phoneNumber);
+        self::assertPhoneNumberIsValid($phoneNumber);
     }
 
-    public static function validate(string $phoneNumber): void
+    public static function assertPhoneNumberIsValid(string $phoneNumber): void
     {
         if (preg_match(self::VALID_PHONE_NUMBER_PATTERN, $phoneNumber) === 0) {
             throw new NonValidClientPhoneException();

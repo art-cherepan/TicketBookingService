@@ -11,10 +11,10 @@ final class ClientName
     public function __construct(
         private string $clientName,
     ) {
-        self::validate($clientName);
+        self::assertNameIsValid($clientName);
     }
 
-    public static function validate(string $clientName): void
+    public static function assertNameIsValid(string $clientName): void
     {
         if (preg_match(self::VALID_CLIENT_NAME_PATTERN, $clientName) === 0) {
             throw new NonValidClientNameException();
