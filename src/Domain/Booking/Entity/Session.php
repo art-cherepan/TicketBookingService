@@ -2,6 +2,7 @@
 
 namespace App\Domain\Booking\Entity;
 
+use App\Domain\Booking\Entity\Collections\TicketCollection;
 use App\Exception\InvalidSessionIdException;
 use App\Exception\NonFreeTicketsException;
 use DateTimeImmutable;
@@ -9,21 +10,16 @@ use Symfony\Component\Uid\UuidV4;
 
 final class Session
 {
-    /**
-     * @param array<Ticket> $tickets
-     */
     public function __construct(
         private UuidV4 $id,
         private DateTimeImmutable $sessionDate,
         private DateTimeImmutable $sessionStartTime,
         private DateTimeImmutable $sessionEndTime,
-        private array $tickets,
+        private TicketCollection $tickets,
         private string $filmName,
     ) {
-        foreach ($tickets as $ticket) {
-            if ($ticket->getSessionId() !== $this->id) {
-                throw new InvalidSessionIdException();
-            }
+        if (!$this->tickets->areForSession($this)) {
+            throw new InvalidSessionIdException();
         }
     }
 
@@ -47,14 +43,6 @@ final class Session
         return $this->sessionEndTime;
     }
 
-    /**
-     * @return array<Ticket>
-     */
-    public function getTickets(): array
-    {
-        return $this->tickets;
-    }
-
     public function getFilmName(): string
     {
         return $this->filmName;
@@ -62,21 +50,15 @@ final class Session
 
     public function toBookATicket(Ticket $ticket): void
     {
-        if ($this->getTicketCount() < 1) {
+        if (!$this->getTickets()->count()) {
             throw new NonFreeTicketsException();
         }
 
-        foreach ($this->tickets as $sessionTicket) {
-            if ($sessionTicket->getId() !== $ticket->getId()) {
-                continue;
-            }
-
-            unset($this->tickets[array_search($ticket, $this->tickets, null)]);
-        }
+        $this->tickets = $this->getTickets()->withoutTicket($ticket);
     }
 
-    private function getTicketCount(): int
+    private function getTickets(): TicketCollection
     {
-        return count($this->tickets);
+        return $this->tickets;
     }
 }
