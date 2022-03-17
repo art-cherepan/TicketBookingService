@@ -6,6 +6,8 @@ use App\Exception\NonValidClientNameException;
 
 final class ClientName
 {
+    private const VALID_CLIENT_NAME_PATTERN = '/^[а-яёА-ЯЁ\s]+$/u';
+
     public function __construct(
         private string $clientName,
     ) {
@@ -19,7 +21,7 @@ final class ClientName
 
     private function validate(string $clientName): void
     {
-        if (preg_match('/^[а-яёА-ЯЁ\s]+$/u', $clientName) === 0) {
+        if (preg_match(self::VALID_CLIENT_NAME_PATTERN, $clientName) === 0) {
             throw new NonValidClientNameException();
         }
     }

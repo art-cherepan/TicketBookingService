@@ -28,17 +28,17 @@ final class Session
         return $this->id;
     }
 
-    public function getSessionDate(): DateTimeImmutable
+    public function getDate(): DateTimeImmutable
     {
         return $this->sessionDate;
     }
 
-    public function getSessionStartTime(): DateTimeImmutable
+    public function getStartTime(): DateTimeImmutable
     {
         return $this->sessionStartTime;
     }
 
-    public function getSessionEndTime(): DateTimeImmutable
+    public function getEndTime(): DateTimeImmutable
     {
         return $this->sessionEndTime;
     }

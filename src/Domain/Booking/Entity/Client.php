@@ -19,12 +19,12 @@ final class Client
         return $this->id;
     }
 
-    public function getClientName(): string
+    public function getName(): ClientName
     {
         return $this->clientName;
     }
 
-    public function getPhoneNumber(): string
+    public function getPhoneNumber(): ClientPhoneNumber
     {
         return $this->phoneNumber;
     }

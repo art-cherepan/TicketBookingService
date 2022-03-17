@@ -6,6 +6,8 @@ use App\Exception\NonValidClientPhoneException;
 
 final class ClientPhoneNumber
 {
+    private const VALID_PHONE_NUMBER_PATTERN = '/^[0-9]{10,10}+$/';
+
     public function __construct(
         private string $phoneNumber,
     ) {
@@ -19,7 +21,7 @@ final class ClientPhoneNumber
 
     private function validate(string $phoneNumber): void
     {
-        if (preg_match('/^[0-9]{10,10}+$/', $phoneNumber) === 0) {
+        if (preg_match(self::VALID_PHONE_NUMBER_PATTERN, $phoneNumber) === 0) {
             throw new NonValidClientPhoneException();
         }
     }
