@@ -9,9 +9,9 @@ final class ClientName
     private const VALID_CLIENT_NAME_PATTERN = '/^[а-яёА-ЯЁ\s]+$/u';
 
     public function __construct(
-        private string $clientName,
+        private string $value,
     ) {
-        self::assertNameIsValid($clientName);
+        self::assertNameIsValid($value);
     }
 
     public static function assertNameIsValid(string $clientName): void
@@ -23,6 +23,6 @@ final class ClientName
 
     public function getValue(): string
     {
-        return $this->clientName;
+        return $this->value;
     }
 }

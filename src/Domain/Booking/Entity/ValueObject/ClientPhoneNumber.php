@@ -9,9 +9,9 @@ final class ClientPhoneNumber
     private const VALID_PHONE_NUMBER_PATTERN = '/^[0-9]{10,10}+$/';
 
     public function __construct(
-        private string $phoneNumber,
+        private string $value,
     ) {
-        self::assertPhoneNumberIsValid($phoneNumber);
+        self::assertPhoneNumberIsValid($value);
     }
 
     public static function assertPhoneNumberIsValid(string $phoneNumber): void
@@ -23,6 +23,6 @@ final class ClientPhoneNumber
 
     public function getValue(): string
     {
-        return $this->phoneNumber;
+        return $this->value;
     }
 }
