@@ -2,6 +2,7 @@
 
 namespace App\Domain\Booking\Entity;
 
+use DateTimeImmutable;
 use Symfony\Component\Uid\UuidV4;
 
 final class BookedTicketRecord
@@ -23,17 +24,17 @@ final class BookedTicketRecord
         $this->session->toBookATicket($this->ticket);
     }
 
-    public function getSessionDate(): string
+    public function getSessionDate(): DateTimeImmutable
     {
         return $this->session->getSessionDate();
     }
 
-    public function getSessionStartTime(): string
+    public function getSessionStartTime(): DateTimeImmutable
     {
         return $this->session->getSessionStartTime();
     }
 
-    public function getSessionEndTime(): string
+    public function getSessionEndTime(): DateTimeImmutable
     {
         return $this->session->getSessionEndTime();
     }

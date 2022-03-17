@@ -2,10 +2,9 @@
 
 namespace App\Domain\Booking\Entity;
 
-use App\Domain\Booking\Entity\ValueObject\SessionDate;
-use App\Domain\Booking\Entity\ValueObject\SessionTime;
+use App\Exception\InvalidSessionIdException;
 use App\Exception\NonFreeTicketsException;
-use http\Exception\InvalidArgumentException;
+use DateTimeImmutable;
 use Symfony\Component\Uid\UuidV4;
 
 final class Session
@@ -15,15 +14,15 @@ final class Session
      */
     public function __construct(
         private UuidV4 $id,
-        private SessionDate $sessionDate,
-        private SessionTime $sessionStartTime,
-        private SessionTime $sessionEndTime,
+        private DateTimeImmutable $sessionDate,
+        private DateTimeImmutable $sessionStartTime,
+        private DateTimeImmutable $sessionEndTime,
         private array $tickets,
         private string $filmName,
     ) {
         foreach ($tickets as $ticket) {
             if ($ticket->getSessionId() !== $this->id) {
-                throw new InvalidArgumentException();
+                throw new InvalidSessionIdException();
             }
         }
     }
@@ -33,17 +32,17 @@ final class Session
         return $this->id;
     }
 
-    public function getSessionDate(): SessionDate
+    public function getSessionDate(): DateTimeImmutable
     {
         return $this->sessionDate;
     }
 
-    public function getSessionStartTime(): SessionTime
+    public function getSessionStartTime(): DateTimeImmutable
     {
         return $this->sessionStartTime;
     }
 
-    public function getSessionEndTime(): SessionTime
+    public function getSessionEndTime(): DateTimeImmutable
     {
         return $this->sessionEndTime;
     }

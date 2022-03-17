@@ -2,7 +2,7 @@
 
 namespace App\Exception;
 
-class InvalidSessionIdException
+class InvalidSessionIdException extends \DomainException
 {
     public function __construct()
     {
