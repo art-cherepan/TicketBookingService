@@ -6,6 +6,7 @@ use App\Domain\Booking\Entity\Collections\TicketCollection;
 use App\Exception\InvalidSessionIdException;
 use App\Exception\NonFreeTicketsException;
 use DateTimeImmutable;
+use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Uid\UuidV4;
 
 final class Session
@@ -48,13 +49,15 @@ final class Session
         return $this->filmName;
     }
 
-    public function toBookATicket(Ticket $ticket): void
+    public function bookTicket(Client $client, Ticket $ticket): BookedTicketRecord
     {
         if (!$this->getTickets()->count()) {
             throw new NonFreeTicketsException();
         }
 
         $this->tickets = $this->getTickets()->withoutTicket($ticket);
+
+        return new BookedTicketRecord(Uuid::v4(), $client, $this, $ticket);
     }
 
     private function getTickets(): TicketCollection

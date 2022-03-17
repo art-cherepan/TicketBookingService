@@ -21,11 +21,6 @@ final class BookedTicketRecord
         return $this->id;
     }
 
-    public function bookedTicket(): void
-    {
-        $this->session->toBookATicket($this->ticket);
-    }
-
     public function getSessionDate(): DateTimeImmutable
     {
         return $this->session->getDate();
