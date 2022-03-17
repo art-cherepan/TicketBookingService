@@ -11,18 +11,18 @@ final class ClientName
     public function __construct(
         private string $clientName,
     ) {
-        $this->validate($clientName);
+        self::validate($clientName);
+    }
+
+    public static function validate(string $clientName): void
+    {
+        if (preg_match(self::VALID_CLIENT_NAME_PATTERN, $clientName) === 0) {
+            throw new NonValidClientNameException();
+        }
     }
 
     public function getValue(): string
     {
         return $this->clientName;
-    }
-
-    private function validate(string $clientName): void
-    {
-        if (preg_match(self::VALID_CLIENT_NAME_PATTERN, $clientName) === 0) {
-            throw new NonValidClientNameException();
-        }
     }
 }
