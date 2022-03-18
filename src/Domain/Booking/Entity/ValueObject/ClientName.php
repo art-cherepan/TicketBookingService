@@ -14,15 +14,15 @@ final class ClientName
         self::assertNameIsValid($value);
     }
 
-    public static function assertNameIsValid(string $clientName): void
+    public function getValue(): string
+    {
+        return $this->value;
+    }
+
+    private static function assertNameIsValid(string $clientName): void
     {
         if (preg_match(self::VALID_CLIENT_NAME_PATTERN, $clientName) === 0) {
             throw new NonValidClientNameException($clientName);
         }
-    }
-
-    public function getValue(): string
-    {
-        return $this->value;
     }
 }

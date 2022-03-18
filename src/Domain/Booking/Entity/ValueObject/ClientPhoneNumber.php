@@ -14,15 +14,15 @@ final class ClientPhoneNumber
         self::assertPhoneNumberIsValid($value);
     }
 
-    public static function assertPhoneNumberIsValid(string $phoneNumber): void
+    public function getValue(): string
+    {
+        return $this->value;
+    }
+
+    private static function assertPhoneNumberIsValid(string $phoneNumber): void
     {
         if (preg_match(self::VALID_PHONE_NUMBER_PATTERN, $phoneNumber) === 0) {
             throw new NonValidClientPhoneException($phoneNumber);
         }
-    }
-
-    public function getValue(): string
-    {
-        return $this->value;
     }
 }
