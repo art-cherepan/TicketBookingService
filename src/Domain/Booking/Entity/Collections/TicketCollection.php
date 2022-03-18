@@ -29,12 +29,12 @@ class TicketCollection implements IteratorAggregate
     {
         $newTicketCollection = $this->tickets;
 
-        foreach ($newTicketCollection as $sessionTicket) {
-            if ($sessionTicket->getId() !== $ticket->getId()) {
+        foreach ($newTicketCollection as $ticketKey => $sessionTicket) {
+            if ($sessionTicket !== $ticket) {
                 continue;
             }
 
-            unset($newTicketCollection[array_search($ticket, $this->tickets, null)]);
+            unset($newTicketCollection[$ticketKey]);
         }
 
         return new TicketCollection($newTicketCollection);
