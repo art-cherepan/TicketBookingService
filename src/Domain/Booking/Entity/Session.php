@@ -14,9 +14,9 @@ final class Session
 
     public function __construct(
         private UuidV4 $id,
-        private DateTimeImmutable $sessionDate,
-        private DateTimeImmutable $sessionStartTime,
-        private DateTimeImmutable $sessionEndTime,
+        private DateTimeImmutable $date,
+        private DateTimeImmutable $startTime,
+        private DateTimeImmutable $endTime,
         private int $numberOfTickets,
         private string $filmName,
     ) {
@@ -30,17 +30,17 @@ final class Session
 
     public function getDate(): DateTimeImmutable
     {
-        return $this->sessionDate;
+        return $this->date;
     }
 
     public function getStartTime(): DateTimeImmutable
     {
-        return $this->sessionStartTime;
+        return $this->startTime;
     }
 
     public function getEndTime(): DateTimeImmutable
     {
-        return $this->sessionEndTime;
+        return $this->endTime;
     }
 
     public function getFilmName(): string
