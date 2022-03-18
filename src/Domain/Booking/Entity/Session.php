@@ -50,9 +50,7 @@ final class Session
 
     public function bookTicket(Client $client, Ticket $ticket): BookedTicketRecord
     {
-        if (!$this->getTickets()->count()) {
-            throw new NonFreeTicketsException();
-        }
+        self::assertSessionHasAvailableTickets($this);
 
         $this->tickets = $this->getTickets()->withoutTicket($ticket);
 
@@ -73,5 +71,12 @@ final class Session
         }
 
         return new TicketCollection($tickets);
+    }
+
+    private static function assertSessionHasAvailableTickets(Session $session): void
+    {
+        if (!$session->getTickets()->count()) {
+            throw new NonFreeTicketsException();
+        }
     }
 }

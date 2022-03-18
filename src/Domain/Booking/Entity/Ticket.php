@@ -16,7 +16,7 @@ final class Ticket
         return $this->id;
     }
 
-    public function getSessionId(): Session
+    public function getSession(): Session
     {
         return $this->session;
     }

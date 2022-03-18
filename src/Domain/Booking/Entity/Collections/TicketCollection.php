@@ -12,7 +12,7 @@ class TicketCollection implements IteratorAggregate
      * @param array<Ticket> $tickets
      */
     public function __construct(
-        public array $tickets,
+        private array $tickets,
     ) {}
 
     public function getIterator(): ArrayIterator

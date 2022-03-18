@@ -24,4 +24,8 @@ $session = new Session($sessionUUID, $date, $timeStart, $timeEnd, 10, 'Вено�
 
 $ticketCollection = $session->getTickets();
 
+foreach ($ticketCollection as $ticket) {
+    var_dump($ticket);
+}
+
 $session->bookTicket($client, $ticketCollection->tickets[0]);
